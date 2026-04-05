@@ -1,7 +1,7 @@
 name: Post welcome comment
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronized, reopened]
 
 permissions:
   pull-requests: write
@@ -10,13 +10,12 @@ jobs:
   welcome:
     runs-on: ubuntu-latest
     steps:
-      - name: Post comment
-        uses: actions/github-script@v6
+      - uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Welcome to the repository! Step 2 complete. 🚀'
+              body: 'Step 2 Complete! 🚀'
             })
